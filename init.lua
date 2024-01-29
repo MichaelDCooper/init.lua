@@ -115,7 +115,14 @@ require('lazy').setup({
     {
         "ibhagwan/fzf-lua",
         config = function()
-            require("fzf-lua").setup({})
+            require("fzf-lua").setup({
+                keymap = {
+                    fzf = {
+                        ["tab"]       = "down",
+                        ["shift-tab"] = "up",
+                    }
+                }
+            })
         end
     },
     { 'theprimeagen/harpoon' },
@@ -202,8 +209,9 @@ cmp.setup({
         { name = "copilot" },
     },
     mapping = cmp.mapping.preset.insert({
-        -- ['<Tab>'] = cmp_action.luasnip_supertab(),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
     })
 })
