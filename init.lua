@@ -20,6 +20,9 @@ require('lazy').setup({
         "ellisonleao/gruvbox.nvim",
         priority = 1000,
         config = function()
+            require("gruvbox").setup({
+                contrast = "hard", -- can be "hard", "soft" or empty string
+            })
             vim.cmd.colorscheme("gruvbox")
         end,
     },
@@ -54,6 +57,14 @@ require('lazy').setup({
     { 'tpope/vim-commentary' },
     { 'tpope/vim-vinegar' },
     { 'nvim-lua/plenary.nvim' },
+    {
+        "folke/todo-comments.nvim",
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+    },
     {
         'scalameta/nvim-metals',
         config = function()
@@ -236,6 +247,11 @@ vim.opt.updatetime = 50
 vim.g.mapleader = " "
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.showmode = false
+-- Sync clipboard between OS and Neovim.
+--  Remove this option if you want your OS clipboard to remain independent.
+--  See `:help 'clipboard'`
+vim.opt.clipboard = 'unnamedplus'
 
 -- ##############
 -- ### Remaps ###
@@ -256,6 +272,9 @@ vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<cr>", { silent = true, no
 vim.keymap.set('n', '<leader>f', "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
 vim.keymap.set('n', '<leader>r', "<cmd>lua require('fzf-lua').grep_visual()<CR>", { silent = true })
 vim.keymap.set('n', '<leader>/', "<cmd>lua require('fzf-lua').grep()<CR>", { silent = true })
+
+-- clear copy buffer
+vim.keymap.set('n', '<leader>dp', "<cmd>dp+<CR>", { silent = true })
 
 -- harpoon
 local mark = require("harpoon.mark")
